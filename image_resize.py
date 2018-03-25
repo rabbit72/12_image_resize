@@ -35,12 +35,9 @@ def get_args():
 
 
 def check_path_to_img(path_to_picture):
-    available_ext = ['jpg', 'jpeg', 'bmp', 'png']
     if not os.path.isfile(path_to_picture):
         raise FileNotFoundError('Incorrect path to image')
-    ext = os.path.splitext(path_to_picture)[1].lstrip('.')
-    if ext not in available_ext:
-        raise RuntimeError("Unsupported image's ext: {0}".format(ext))
+
 
 
 def check_dir_for_save(path_for_save):

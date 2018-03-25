@@ -29,9 +29,7 @@ def get_args():
         '--output',
         help='Directory for new picture'
     )
-
-    args = vars(parser.parse_args())
-    return args
+    return parser.parse_args()
 
 
 def check_path_to_img(path_to_picture):
@@ -45,9 +43,9 @@ def check_dir_for_save(path_for_save):
 
 
 def check_args(args):
-    check_path_to_img(args['path_to_img'])
-    check_dir_for_save(args['output'])
-    width, height, scale = args['width'], args['height'], args['scale']
+    check_path_to_img(args.path_to_img)
+    check_dir_for_save(args.output)
+    width, height, scale = args.width, args.height, args.scale
     if not any((width, height, scale)):
         exit('No resizing specified')
     if scale and (width or height):
@@ -89,9 +87,9 @@ def get_path_for_save(original_path, new_dir, size_img):
 if __name__ == '__main__':
     args = get_args()
     check_args(args)
-    path_to_img = args['path_to_img']
-    dir_for_save = args['output']
-    raw_size = args['width'], args['height'], args['scale']
+    path_to_img = args.path_to_img
+    dir_for_save = args.output
+    raw_size = args.width, args.height, args.scale
     image = Image.open(path_to_img)
     required_size = get_required_size(image.size, raw_size)
     if get_ratio(image.size) != get_ratio(required_size):

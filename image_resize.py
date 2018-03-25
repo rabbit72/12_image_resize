@@ -36,13 +36,12 @@ def get_args():
 
 def check_path_to_img(path_to_picture):
     if not os.path.isfile(path_to_picture):
-        raise FileNotFoundError('Incorrect path to image')
-
+        exit('Incorrect path to image')
 
 
 def check_dir_for_save(path_for_save):
     if path_for_save and not os.path.isdir(path_for_save):
-        raise FileNotFoundError('Incorrect path for save')
+        exit('Incorrect path for save')
 
 
 def check_args(args):

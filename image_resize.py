@@ -55,8 +55,8 @@ def check_args(args):
             exit('Value can not be <= 0')
 
 
-def get_required_size(current_size, raw_size):
-    width, height, scale = raw_size
+def get_size_for_new_img(current_size, args):
+    width, height, scale = args.width, args.height, args.scale
     current_ratio = get_ratio(current_size)
     current_width, current_height = current_size
     if scale:
@@ -89,11 +89,10 @@ if __name__ == '__main__':
     check_args(args)
     path_to_img = args.path_to_img
     dir_for_save = args.output
-    raw_size = args.width, args.height, args.scale
     image = Image.open(path_to_img)
-    required_size = get_required_size(image.size, raw_size)
-    if get_ratio(image.size) != get_ratio(required_size):
+    size_for_new_file = get_size_for_new_img(image.size, args)
+    if get_ratio(image.size) != get_ratio(size_for_new_file):
         print('A new proportion of the image is different from the original')
-    resize_img = image.resize(required_size)
-    path_for_save = get_path_for_save(path_to_img, dir_for_save, required_size)
+    resize_img = image.resize(size_for_new_file)
+    path_for_save = get_path_for_save(path_to_img, dir_for_save, size_for_new_file)
     resize_img.save(path_for_save)

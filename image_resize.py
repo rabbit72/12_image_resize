@@ -36,16 +36,12 @@ def check_args(args):
     width, height, scale = args.width, args.height, args.scale
     if not os.path.isfile(args.path_to_img):
         return 'Incorrect path to image'
-
     if args.output and not os.path.isdir(args.output):
         return 'Incorrect path for save'
-
     if not any((width, height, scale)):
         return 'No resizing specified'
-
     if scale and (width or height):
         return 'Сan not use "scale" with "width" or "height"'
-
     for number in (width, height, scale):
         if number and number <= 0:
             return 'Value can not be <= 0'

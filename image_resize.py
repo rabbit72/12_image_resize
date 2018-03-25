@@ -48,19 +48,16 @@ def check_args(args):
     check_path_to_img(args['path_to_img'])
     check_dir_for_save(args['output'])
     width, height, scale = args['width'], args['height'], args['scale']
+    if not any((width, height, scale)):
+        exit('No resizing specified')
     if scale and (width or height):
-        raise argparse.ArgumentError(
-            None,
-            'Сan not use "scale" with "width" or "height"'
-        )
+        exit('Сan not use "scale" with "width" or "height"')
     for number in (width, height, scale):
         if number and number <= 0:
-            raise argparse.ArgumentError('Value can not be <= 0')
+            exit('Value can not be <= 0')
 
 
 def get_required_size(current_size, raw_size):
-    if not any(raw_size):
-        return current_size
     width, height, scale = raw_size
     current_ratio = get_ratio(current_size)
     current_width, current_height = current_size

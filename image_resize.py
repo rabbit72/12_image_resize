@@ -32,27 +32,23 @@ def get_args():
     return parser.parse_args()
 
 
-def check_path_to_img(path_to_picture):
-    if not os.path.isfile(path_to_picture):
-        exit('Incorrect path to image')
-
-
-def check_dir_for_save(path_for_save):
-    if path_for_save and not os.path.isdir(path_for_save):
-        exit('Incorrect path for save')
-
-
 def check_args(args):
-    check_path_to_img(args.path_to_img)
-    check_dir_for_save(args.output)
     width, height, scale = args.width, args.height, args.scale
+    if not os.path.isfile(args.path_to_img):
+        return 'Incorrect path to image'
+
+    if args.output and not os.path.isdir(args.output):
+        return 'Incorrect path for save'
+
     if not any((width, height, scale)):
-        exit('No resizing specified')
+        return 'No resizing specified'
+
     if scale and (width or height):
-        exit('Сan not use "scale" with "width" or "height"')
+        return 'Сan not use "scale" with "width" or "height"'
+
     for number in (width, height, scale):
         if number and number <= 0:
-            exit('Value can not be <= 0')
+            return 'Value can not be <= 0'
 
 
 def get_size_for_new_img(current_size, args):
@@ -86,7 +82,9 @@ def get_path_for_save(original_path, new_dir, size_img):
 
 if __name__ == '__main__':
     args = get_args()
-    check_args(args)
+    error = check_args(args)
+    if error:
+        exit(error)
     path_to_img = args.path_to_img
     dir_for_save = args.output
     image = Image.open(path_to_img)

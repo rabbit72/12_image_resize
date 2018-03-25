@@ -31,7 +31,6 @@ def get_args():
     )
 
     args = vars(parser.parse_args())
-    check_args(args)
     return args
 
 
@@ -96,6 +95,7 @@ def get_path_for_save(original_path, new_dir, size_img):
 
 if __name__ == '__main__':
     args = get_args()
+    check_args(args)
     path_to_img = args['path_to_img']
     dir_for_save = args['output']
     raw_size = args['width'], args['height'], args['scale']

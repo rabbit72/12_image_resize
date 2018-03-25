@@ -41,9 +41,8 @@ def check_args(args):
         return 'No resizing specified'
     elif args.scale and (args.width or args.height):
         return 'Сan not use "scale" with "width" or "height"'
-    for number in (args.width, args.height, args.scale):
-        if number and number <= 0:
-            return 'Value can not be <= 0'
+    elif args.width or args.height or args.scale <= 0:
+        return 'Value can not be <= 0'
 
 
 def get_size_for_new_img(current_size, args):

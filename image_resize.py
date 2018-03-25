@@ -6,7 +6,7 @@ from PIL import Image
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'img',
+        'path_to_img',
         help='Path to image'
     )
     parser.add_argument(
@@ -50,7 +50,7 @@ def check_dir_for_save(path_for_save):
 
 
 def check_args(args):
-    check_path_to_img(args['img'])
+    check_path_to_img(args['path_to_img'])
     check_dir_for_save(args['output'])
     width, height, scale = args['width'], args['height'], args['scale']
     if scale and (width or height):
@@ -96,7 +96,7 @@ def get_path_for_save(original_path, new_dir, size_img):
 
 if __name__ == '__main__':
     args = get_args()
-    path_to_img = args['img']
+    path_to_img = args['path_to_img']
     dir_for_save = args['output']
     raw_size = args['width'], args['height'], args['scale']
     image = Image.open(path_to_img)

@@ -59,7 +59,7 @@ def check_args(args):
         )
     for number in (width, height, scale):
         if number and number <= 0:
-            raise ValueError('Value can not be <= 0')
+            raise argparse.ArgumentError('Value can not be <= 0')
 
 
 def get_required_size(current_size, raw_size):

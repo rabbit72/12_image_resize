@@ -75,11 +75,11 @@ def get_ratio(size):
 
 
 def get_path_for_save(original_path, new_dir, size_img):
-    original_dir, original_name = os.path.split(path_to_img)
+    original_dir, original_name = os.path.split(original_path)
     root, ext = os.path.splitext(original_name)
     width, height = size_img
     new_name = '{0}__{1}x{2}{3}'.format(root, width, height, ext)
-    if new_dir and not os.path.samefile(original_path, new_dir):
+    if new_dir and not os.path.samefile(original_dir, new_dir):
         return os.path.join(new_dir, original_name)
     return os.path.join(original_dir, new_name)
 

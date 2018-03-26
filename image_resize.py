@@ -11,18 +11,18 @@ def get_args():
     )
     parser.add_argument(
         '--width',
-        type=int,
+        type=positive_int,
         help='Required image width'
 
     )
     parser.add_argument(
         '--height',
-        type=int,
+        type=positive_int,
         help='Required image height'
     )
     parser.add_argument(
         '--scale',
-        type=float,
+        type=positive_float,
         help='Required scale image'
     )
     parser.add_argument(
@@ -30,6 +30,18 @@ def get_args():
         help='Directory for new picture'
     )
     return parser.parse_args()
+
+
+def positive_int(arg):
+    if not isinstance(arg, int) and int(arg) <= 0:
+        raise argparse.ArgumentTypeError
+    return int(arg)
+
+
+def positive_float(arg):
+    if not isinstance(arg, float) and float(arg) <= 0:
+        raise argparse.ArgumentTypeError
+    return float(arg)
 
 
 def check_args(args):
@@ -41,8 +53,6 @@ def check_args(args):
         return 'No resizing specified'
     elif args.scale and (args.width or args.height):
         return 'Сan not use "scale" with "width" or "height"'
-    elif args.width or args.height or args.scale <= 0:
-        return 'Value can not be <= 0'
 
 
 def get_size_for_new_img(current_size, args):

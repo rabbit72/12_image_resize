@@ -75,12 +75,12 @@ def get_ratio(size):
 
 
 def get_path_for_save(original_path, new_dir, size_img):
-    original_dir, original_name = os.path.split(original_path)
-    root, ext = os.path.splitext(original_name)
+    original_dir, original_name_with_ext = os.path.split(original_path)
+    name, ext = os.path.splitext(original_name_with_ext)
     width, height = size_img
-    new_name = '{0}__{1}x{2}{3}'.format(root, width, height, ext)
+    new_name = '{0}__{1}x{2}{3}'.format(name, width, height, ext)
     if new_dir and not os.path.samefile(original_dir, new_dir):
-        return os.path.join(new_dir, original_name)
+        return os.path.join(new_dir, original_name_with_ext)
     return os.path.join(original_dir, new_name)
 
 
@@ -95,6 +95,6 @@ if __name__ == '__main__':
     size_for_new_file = get_size_for_new_img(image.size, args)
     if get_ratio(image.size) != get_ratio(size_for_new_file):
         print('A new proportion of the image is different from the original')
-    resize_img = image.resize(size_for_new_file)
+    resized_img = image.resize(size_for_new_file)
     path_for_save = get_path_for_save(path_to_img, dir_for_save, size_for_new_file)
-    resize_img.save(path_for_save)
+    resized_img.save(path_for_save)
